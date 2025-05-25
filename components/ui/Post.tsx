@@ -22,17 +22,19 @@ const Post = ({ post }: { post: PostProps }) => {
               className="avatar-img max-un"
               src={authorAvt}
               alt={authorName}
+              width={50} // Specify width (adjust as needed)
+              height={50} // Specify height (adjust as needed)
             />
           </div>
           <div className="info-area">
             <h6 className="m-0">
               <Link href="/public-profile/post">{authorName}</Link>
             </h6>
-            <span className="mdtxt status">Active</span>
+            <span className="mdtxt status">@santhosh_007</span>
+            <h6>bangalore</h6>
           </div>
         </div>
         <div className="btn-group cus-dropdown">
-          {/* Post Action */}
           <PostAction />
         </div>
       </div>
@@ -57,15 +59,40 @@ const Post = ({ post }: { post: PostProps }) => {
           imgs?.length > 1 ? (
             <>
               <div className="single">
-                <Image src={imgs[0]} alt="image" />
+                <Image
+                  src="/images/santhosh.jpeg" // Relative path from public directory
+                  alt="image"
+                  width={300} // Adjust width as needed
+                  height={300} // Adjust height as needed
+                />
               </div>
               <div className="single d-grid gap-3">
-                <Image src={imgs[1]} alt="image" />
-                <Image src={imgs[2]} alt="image" />
+                {imgs[1] && (
+                  <Image
+                    src="/images/santhosh.jpeg" // Relative path
+                    alt="image"
+                    width={150} // Adjust width as needed
+                    height={150} // Adjust height as needed
+                  />
+                )}
+                {imgs[2] && (
+                  <Image
+                    src="/images/santhosh.jpeg" // Relative path
+                    alt="image"
+                    width={150} // Adjust width as needed
+                    height={150} // Adjust height as needed
+                  />
+                )}
               </div>
             </>
           ) : (
-            <Image src={imgs[0]} alt="image" className="w-100" />
+            <Image
+              src="/images/santhosh.jpeg"
+              alt="image"
+              className="w-100"
+              width={500} // Adjust width as needed
+              height={300} // Adjust height as needed
+            />
           )
         ) : (
           ""
