@@ -17,7 +17,7 @@ const NewsFeeds = ({ clss = "", reaction = "" }) => {
           <PostReaction reaction={reaction} />
 
           {/* Write Comment */}
-          <WriteComment />
+          {/* <WriteComment /> */}
 
           {post.comments
             ? post?.comments.map((comment) => (
