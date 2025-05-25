@@ -1,0 +1,286 @@
+// Variables
+$black: #000;
+$card-bg: #1c2526;
+$input-bg: #2a3435;
+$gradient-start: #ff4b2b;
+$gradient-end: #ffb347;
+$white: #fff;
+$gray-400: #9ca3af;
+$transition: transform 0.6s ease-in-out;
+$transition-fast: transform 0.08s ease;
+
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+);
+
+// Mixin for responsive design
+@mixin breakpoint($size) {
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+// SignIn Container
+.signin-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transition: $transition;
+
+  @include breakpoint(md) {
+    width: 50%;
+  }
+
+  &.right-panel-active {
+    z-index: 1;
+    transform: translateX(0);
+    opacity: 0;
+
+    @include breakpoint(md) {
+      transform: translateX(100%);
+    }
+  }
+
+  &:not(.right-panel-active) {
+    z-index: 2;
+    transform: translateX(0);
+    opacity: 1;
+
+    @include breakpoint(md) {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Form (Sign In and Forgot Password)
+.signin-form {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $card-bg;
+  padding: 0 1.25rem;
+  text-align: center;
+
+  @include breakpoint(sm) {
+    padding: 0 2rem;
+  }
+
+  @include breakpoint(md) {
+    padding: 0 40px;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: $white;
+
+    @include breakpoint(sm) {
+      margin-bottom: 1.5rem;
+      font-size: 2.25rem;
+    }
+
+    @include breakpoint(md) {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+// Sign In Specific
+.signin-form {
+  .signin-span {
+    margin-bottom: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: $white;
+  }
+
+  .signin-input {
+    margin: 0.5rem 0;
+    width: 100%;
+    border-radius: 0.25rem;
+    border: 1px solid $gradient-start;
+    background-color: $input-bg;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $white;
+
+    &::placeholder {
+      color: $gray-400;
+      opacity: 0.7;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $gradient-start;
+    }
+
+    @include breakpoint(sm) {
+      padding-top: 0.875rem;
+      padding-bottom: 0.875rem;
+    }
+  }
+
+  .forgot-password-link {
+    margin: 1rem 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: $white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .signin-button-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  .signin-button-desktop {
+    display: none;
+    border-radius: 1rem;
+    border: 1px solid $gradient-start;
+    background: linear-gradient(to right, $gradient-start, $gradient-end);
+    padding: 0.875rem 3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $white;
+    text-transform: uppercase;
+    transition: $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    @include breakpoint(md) {
+      display: block;
+    }
+  }
+
+  .signin-button-mobile-container {
+    display: flex;
+    width: 100%;
+    gap: 0.75rem;
+
+    @include breakpoint(md) {
+      display: none;
+    }
+  }
+
+  .signin-button-mobile {
+    flex: 1;
+    border-radius: 1rem;
+    border: 1px solid $gradient-start;
+    background: linear-gradient(to right, $gradient-start, $gradient-end);
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $white;
+    text-transform: uppercase;
+    transition: $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+// Forgot Password Specific
+.forgot-password-form {
+  .forgot-password-text {
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: $white;
+  }
+
+  .forgot-password-input {
+    margin: 0.5rem 0;
+    width: 100%;
+    border-radius: 0.25rem;
+    border: 1px solid $gradient-start;
+    background-color: $input-bg;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $white;
+
+    &::placeholder {
+      color: $gray-400;
+      opacity: 0.7;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $gradient-start;
+    }
+
+    @include breakpoint(sm) {
+      padding-top: 0.875rem;
+      padding-bottom: 0.875rem;
+    }
+  }
+
+  .forgot-password-button-container {
+    display: flex;
+    width: 100%;
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  .forgot-password-button {
+    flex: 1;
+    border-radius: 1rem;
+    border: 1px solid $gradient-start;
+    background: linear-gradient(to right, $gradient-start, $gradient-end);
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $white;
+    text-transform: uppercase;
+    transition: $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    @include breakpoint(sm) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      padding-top: 0.875rem;
+      padding-bottom: 0.875rem;
+    }
+  }
+}

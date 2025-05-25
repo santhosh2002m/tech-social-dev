@@ -7,48 +7,57 @@ import Preloader from "@/components/preloader/Preloader";
 import { ThemeProvider } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
-// modal video
-import "node_modules/react-modal-video/scss/modal-video.scss";
-
-//slick
-import "slick-carousel/slick/slick.css";
-
-//custon
 import ScrollToTop from "@/components/scrollToTop/ScrollToTop";
+import "react-modal-video/css/modal-video.css"; // Use CSS if SCSS is unavailable
+import "slick-carousel/slick/slick.css";
 import "../styles/globals.scss";
+
+import store from "../store";
+import { Provider } from "react-redux";
 
 export default function RootLayout({
   children,
 }: {
-  Component: any;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-
-  let clss = "";
-  pathname !== "/index-two" ? (clss = "container") : (clss = "container-fluid");
+  const isLoginPage = pathname === "/login";
+  const clss = pathname !== "/index-two" ? "container" : "container-fluid";
 
   useEffect(() => {
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
+    if (!isLoginPage) {
+      require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    }
+  }, [isLoginPage]);
 
   return (
     <html lang="en">
       <head>
-        <meta name="description" content="Circlehub React Nextjs Template" />
-        <title>Circlehub - React Nextjs Template</title>
+        {!isLoginPage && (
+          <>
+            <meta
+              name="description"
+              content="Circlehub React Nextjs Template"
+            />
+            <title>tech social </title>
+          </>
+        )}
       </head>
-      <body>
-        <ThemeProvider attribute="class" enableSystem={false}>
-          <Preloader />
-          <ScrollToTop />
-          <NavBar clss={clss} />
-          <BottomMenu />
-          {children}
-          {/* Popup */}
-          <PostPopups />
-        </ThemeProvider>
+      <body className={isLoginPage ? "login-page bg-color" : "app-page"}>
+        <Provider store={store}>
+          <ThemeProvider attribute="class" enableSystem={false}>
+            {!isLoginPage && (
+              <>
+                <Preloader />
+                <ScrollToTop />
+                <NavBar clss={clss} />
+                <BottomMenu />
+                <PostPopups />
+              </>
+            )}
+            {children}
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

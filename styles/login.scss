@@ -1,0 +1,249 @@
+// Variables
+$black: #000;
+$card-bg: #1c2526;
+$gradient-start: #ff4b2b;
+$gradient-end: #ffb347;
+$white: #fff;
+$shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+$border-radius: 10px;
+$transition: transform 0.6s ease-in-out;
+$transition-fast: transform 0.08s ease;
+
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+);
+
+// Mixin for responsive design
+@mixin breakpoint($size) {
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+// Container
+.login-container {
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: $black;
+  padding: 1rem;
+
+  @include breakpoint(sm) {
+    padding: 1.25rem;
+  }
+}
+
+// Card
+.login-card {
+  position: relative;
+  min-height: 600px;
+  width: 100%;
+  max-width: 768px;
+  overflow: hidden;
+  border-radius: $border-radius;
+  background-color: $card-bg;
+  box-shadow: $shadow;
+
+  @include breakpoint(md) {
+    min-height: 700px;
+  }
+
+  &.right-panel-active {
+    .overlay-panel {
+      transform: translateX(-100%);
+    }
+    .overlay-gradient {
+      transform: translateX(50%);
+    }
+    .overlay-signin {
+      transform: translateX(15%);
+    }
+    .overlay-signup {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Overlay Panel
+.overlay-panel {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 100;
+  display: none;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  transition: $transition;
+
+  @include breakpoint(md) {
+    display: block;
+  }
+}
+
+// Gradient Background
+.overlay-gradient {
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  background: linear-gradient(to right, $gradient-start, $gradient-end);
+  transition: $transition;
+}
+
+// Overlay Content (Sign In)
+.overlay-signin {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  height: 100%;
+  width: 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  text-align: center;
+  transition: $transition;
+  transform: translateX(0);
+
+  &.right-panel-active {
+    transform: translateX(15%);
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: $white;
+
+    @include breakpoint(sm) {
+      font-size: 2.25rem;
+    }
+    @include breakpoint(md) {
+      font-size: 2rem;
+    }
+    @include breakpoint(lg) {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: $white;
+
+    @include breakpoint(sm) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  button {
+    border-radius: 1rem;
+    border: 1px solid $white;
+    background: transparent;
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $white;
+    text-transform: uppercase;
+    transition: $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+    &:focus {
+      outline: none;
+    }
+    @include breakpoint(sm) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+}
+
+// Overlay Content (Sign Up)
+.overlay-signup {
+  position: absolute;
+  top: 0;
+  display: flex;
+  height: 100%;
+  width: 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  text-align: center;
+  transition: $transition;
+  transform: translateX(-15%);
+
+  &.right-panel-active {
+    transform: translateX(0);
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: $white;
+
+    @include breakpoint(sm) {
+      font-size: 2.25rem;
+    }
+    @include breakpoint(md) {
+      font-size: 2rem;
+    }
+    @include breakpoint(lg) {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: $white;
+
+    @include breakpoint(sm) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  button {
+    border-radius: 1rem;
+    border: 1px solid $white;
+    background: transparent;
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $white;
+    text-transform: uppercase;
+    transition: $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.95);
+    }
+    &:focus {
+      outline: none;
+    }
+    @include breakpoint(sm) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+}
