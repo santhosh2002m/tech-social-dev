@@ -63,6 +63,9 @@ const NavBar = ({ clss = "container" }: { clss: string }) => {
                   placeholder="Search Circlehubtio"
                   autoComplete="off"
                 />
+                <button type="button" className="aiq-button">
+                  AI Q
+                </button>
               </form>
             </div>
             <ul className="navbar-nav feed flex-row gap-xl-20 gap-lg-10 gap-sm-7 gap-3 py-4 py-lg-0 m-lg-auto ms-auto ms-aut align-self-center">
@@ -101,7 +104,6 @@ const NavBar = ({ clss = "container" }: { clss: string }) => {
                   active === "message" ? "active" : ""
                 }`}
               >
-                {/* Message */}
                 <Message activeHandler={activeHandler} />
               </div>
               <div
@@ -109,7 +111,6 @@ const NavBar = ({ clss = "container" }: { clss: string }) => {
                   active === "notification" ? "active" : ""
                 }`}
               >
-                {/* Notification */}
                 <Notification activeHandler={activeHandler} />
               </div>
               <div
@@ -117,7 +118,6 @@ const NavBar = ({ clss = "container" }: { clss: string }) => {
                   active === "settings" ? "active" : ""
                 }`}
               >
-                {/* Setting */}
                 <Setting activeHandler={activeHandler} />
               </div>
             </div>
