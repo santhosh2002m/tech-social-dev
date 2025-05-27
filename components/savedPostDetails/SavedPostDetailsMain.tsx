@@ -10,9 +10,22 @@ import PostReaction from "../ui/PostReaction";
 import SiblingComment from "../ui/SiblingComment";
 import WriteComment from "../ui/WriteComment";
 
+// Define PostReactionProps interface (assumed based on error)
+interface PostReactionProps {
+  toggleCommentSection: () => void;
+  isCommentSectionOpen: boolean;
+}
+
 const SavedPostDetailsMain = () => {
   const [activeProfile, setActiveProfile] = useState<boolean>(false);
+  const [isCommentSectionOpen, setIsCommentSectionOpen] =
+    useState<boolean>(false);
   const data = postData[2];
+
+  // Function to toggle comment section visibility
+  const toggleCommentSection = () => {
+    setIsCommentSectionOpen((prev) => !prev);
+  };
 
   return (
     <main className="main-content">
@@ -29,13 +42,16 @@ const SavedPostDetailsMain = () => {
                 <Post post={data} />
 
                 {/* Post Reaction */}
-                <PostReaction />
+                <PostReaction
+                  toggleCommentSection={toggleCommentSection}
+                  isCommentSectionOpen={isCommentSectionOpen}
+                />
 
-                {/* Write Comment */}
-                <WriteComment />
+                {/* Write Comment (only shown if comment section is open) */}
+                {isCommentSectionOpen && <WriteComment />}
 
                 {data.comments
-                  ? data?.comments.map((comment) => (
+                  ? data.comments.map((comment) => (
                       <div key={comment.id} className="comments-area mt-5">
                         <div className="single-comment-area ms-1 ms-xxl-15">
                           {/* Parent Comment */}
