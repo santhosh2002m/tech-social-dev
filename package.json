@@ -37,6 +37,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@eslint/config-array": "^0.20.0",
+    "@eslint/object-schema": "^2.1.6",
     "@types/react": "^18.2.25",
     "@types/react-calendar": "^3.9.0",
     "@types/react-modal-video": "^1.2.0",
