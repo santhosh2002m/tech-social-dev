@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import avatar_1 from "/public/images/avatar-1.png";
+import avatar_1 from "/public/images/hell.jpg";
 
 const Setting = ({ activeHandler }: { activeHandler: (a: string) => void }) => {
   const [enabled, setEnabled] = useState(false);
@@ -25,7 +25,11 @@ const Setting = ({ activeHandler }: { activeHandler: (a: string) => void }) => {
           className="avatar cmn-head active-status"
           onClick={() => activeHandler("settings")}
         >
-          <Image className="avatar-img max-un" src={avatar_1} alt="avatar" />
+          <Image
+            className="avatar-img max-un setting-size"
+            src={avatar_1}
+            alt="avatar"
+          />
         </span>
       </div>
       <div className="main-area p-5 profile-content">
@@ -33,7 +37,7 @@ const Setting = ({ activeHandler }: { activeHandler: (a: string) => void }) => {
           <div className="d-flex gap-3 align-items-center">
             <div className="avatar-item">
               <Image
-                className="avatar-img max-un"
+                className="avatar-img max-un setting-size"
                 src={avatar_1}
                 alt="avatar"
               />

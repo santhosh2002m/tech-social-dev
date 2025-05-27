@@ -11,7 +11,7 @@ import logo from "/public/images/logo.png";
 const NavBar = ({ clss = "container" }: { clss: string }) => {
   const [windowHeight, setWindowHeight] = useState(0);
   const [active, setActive] = useState<string>("");
-  const [activeSearctForm, setActiveSearctForm] = useState(false);
+  const [activeSearchForm, setActiveSearchForm] = useState(false);
 
   const navBarTop = () => {
     if (window !== undefined) {
@@ -43,62 +43,31 @@ const NavBar = ({ clss = "container" }: { clss: string }) => {
     >
       <nav className="navbar navbar-expand-lg p-0">
         <div className={clss}>
-          <nav className="navbar w-100 navbar-expand-lg justify-content-betweenm">
+          <nav className="navbar w-100 navbar-expand-lg justify-content-between">
             <Link href="/" className="navbar-brand">
               <Image src={logo} className="logo" alt="logo" />
             </Link>
             <button
               className="button search-active d-block d-md-none"
-              onClick={() => setActiveSearctForm(!activeSearctForm)}
+              onClick={() => setActiveSearchForm(!activeSearchForm)}
             >
               <i className="d-center material-symbols-outlined fs-xxl mat-icon">
                 search
               </i>
             </button>
-            <div className={`search-form ${activeSearctForm && "active"}`}>
+            <div className={`search-form ${activeSearchForm ? "active" : ""}`}>
               <form action="#" className="input-area d-flex align-items-center">
-                <i className="material-symbols-outlined mat-icon">search</i>
-                <input
-                  type="text"
-                  placeholder="Search Circlehubtio"
-                  autoComplete="off"
-                />
+                <input type="text" placeholder="search" autoComplete="off" />
                 <button type="button" className="aiq-button">
                   AI Q
                 </button>
+                <i className="material-symbols-outlined mat-icon search-icon">
+                  search
+                </i>
               </form>
             </div>
-            <ul className="navbar-nav feed flex-row gap-xl-20 gap-lg-10 gap-sm-7 gap-3 py-4 py-lg-0 m-lg-auto ms-auto ms-aut align-self-center">
-              <li>
-                <Link href="/index-two" className="nav-icon home active">
-                  <i className="mat-icon fs-xxl material-symbols-outlined mat-icon">
-                    home
-                  </i>
-                </Link>
-              </li>
-              <li>
-                <Link href="/#news-feed" className="nav-icon feed">
-                  <i className="mat-icon fs-xxl material-symbols-outlined mat-icon">
-                    feed
-                  </i>
-                </Link>
-              </li>
-              <li>
-                <Link href="/groups" className="nav-icon">
-                  <i className="mat-icon fs-xxl material-symbols-outlined mat-icon">
-                    group
-                  </i>
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="nav-icon">
-                  <i className="mat-icon fs-xxl material-symbols-outlined mat-icon">
-                    smart_display
-                  </i>
-                </Link>
-              </li>
-            </ul>
-            <div className="right-area position-relative d-flex gap-3 gap-xxl-6 align-items-center">
+
+            <div className="right-area position-relative d-flex gap-3 gap-xxl-6 align-items-center left-side">
               <div
                 className={`single-item d-none d-lg-block messages-area ${
                   active === "message" ? "active" : ""

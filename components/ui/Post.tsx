@@ -1,17 +1,135 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import PostAction from "./PostAction";
+import { PostData, PollOption } from "./postData";
 
 interface PostProps {
-  postText: string;
-  hashTags?: string[];
-  imgs: StaticImageData[];
-  authorName: string;
-  authorAvt: StaticImageData;
+  post: PostData;
 }
 
-const Post = ({ post }: { post: PostProps }) => {
-  const { postText, authorAvt, authorName, hashTags, imgs } = post;
+const Post = ({ post }: PostProps) => {
+  const { postText, authorAvt, authorName, hashTags, media, mediaType, poll } =
+    post;
+
+  // Render media based on mediaType
+  const renderMedia = () => {
+    if (!mediaType || mediaType === "text") return null;
+
+    if (mediaType === "poll" && poll) {
+      // Calculate total votes
+      const totalVotes = poll.reduce(
+        (sum: number, option: PollOption) => sum + option.votes,
+        0
+      );
+
+      return (
+        <div className="poll-area my-3">
+          <p className="poll-label">Poll</p>
+          {poll.map((option: PollOption) => {
+            // Calculate percentage (handle division by zero)
+            const percentage =
+              totalVotes > 0 ? (option.votes / totalVotes) * 100 : 0;
+
+            return (
+              <div key={option.id} className="poll-option">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <span className="poll-option-text">{option.text}</span>
+                  <span className="poll-option-votes">
+                    {option.votes} votes ({percentage.toFixed(1)}%)
+                  </span>
+                </div>
+                <div className="poll-progress-bar">
+                  <div
+                    className="poll-progress-fill"
+                    style={{ width: `${percentage}%` }}
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    if (!media || media.length === 0) {
+      return <p className="text-danger">Media not found</p>;
+    }
+
+    if (mediaType === "image" || mediaType === "gif") {
+      return (
+        <div
+          className={`post-img ${
+            media.length > 1
+              ? "d-flex justify-content-between flex-wrap gap-2 gap-lg-3"
+              : ""
+          }`}
+        >
+          {media.length > 1 ? (
+            <>
+              <div className="single">
+                <Image
+                  src={media[0]}
+                  alt="post media"
+                  width={300}
+                  height={300}
+                />
+              </div>
+              <div className="single d-grid gap-3">
+                {media.slice(1).map((src, index) => (
+                  <Image
+                    key={index}
+                    src={src}
+                    alt="post media"
+                    width={150}
+                    height={150}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <Image
+              src={media[0]}
+              alt="post media"
+              className="w-100"
+              width={600}
+              height={400}
+            />
+          )}
+        </div>
+      );
+    }
+
+    if (mediaType === "video") {
+      return (
+        <div className="post-video">
+          <video controls className="w-100" style={{ maxHeight: "400px" }}>
+            <source src={media[0]} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      );
+    }
+
+    if (mediaType === "pdf") {
+      return (
+        <div className="post-pdf">
+          <iframe
+            src={media[0]}
+            width="100%"
+            height="500px"
+            title="PDF Document"
+            style={{ border: "none" }}
+          >
+            Your browser does not support PDFs. Please download the PDF to view
+            it:
+            <a href={media[0]}>Download PDF</a>.
+          </iframe>
+        </div>
+      );
+    }
+
+    return <p className="text-danger">Unsupported media type</p>;
+  };
 
   return (
     <div className="top-area pb-5">
@@ -22,8 +140,8 @@ const Post = ({ post }: { post: PostProps }) => {
               className="avatar-img max-un"
               src={authorAvt}
               alt={authorName}
-              width={50} // Specify width (adjust as needed)
-              height={50} // Specify height (adjust as needed)
+              width={50}
+              height={50}
             />
           </div>
           <div className="info-area">
@@ -48,56 +166,7 @@ const Post = ({ post }: { post: PostProps }) => {
           ))}
         </p>
       </div>
-      <div
-        className={`post-img ${
-          imgs?.length > 1
-            ? "d-flex justify-content-between flex-wrap gap-2 gap-lg-3"
-            : ""
-        } `}
-      >
-        {imgs.length > 0 ? (
-          imgs?.length > 1 ? (
-            <>
-              <div className="single">
-                <Image
-                  src="/images/santhosh.jpeg" // Relative path from public directory
-                  alt="image"
-                  width={300} // Adjust width as needed
-                  height={300} // Adjust height as needed
-                />
-              </div>
-              <div className="single d-grid gap-3">
-                {imgs[1] && (
-                  <Image
-                    src="/images/santhosh.jpeg" // Relative path
-                    alt="image"
-                    width={150} // Adjust width as needed
-                    height={150} // Adjust height as needed
-                  />
-                )}
-                {imgs[2] && (
-                  <Image
-                    src="/images/santhosh.jpeg" // Relative path
-                    alt="image"
-                    width={150} // Adjust width as needed
-                    height={150} // Adjust height as needed
-                  />
-                )}
-              </div>
-            </>
-          ) : (
-            <Image
-              src="/images/santhosh.jpeg"
-              alt="image"
-              className="w-100"
-              width={500} // Adjust width as needed
-              height={300} // Adjust height as needed
-            />
-          )
-        ) : (
-          ""
-        )}
-      </div>
+      {renderMedia()}
     </div>
   );
 };

@@ -22,14 +22,32 @@ export const friendLeftMenu = [
   ["lock", "Block List", "/block-list"],
 ];
 
+// export const homeLeftMenu = [
+//   ["home", "Home", "/"],
+//   ["chat", "Chats", "/chats"],
+//   ["auto_awesome", "Explore AI", "/explore-ai"],
+//   ["article", "Posts", "/posts"],
+//   ["favorite", "Like Posts", "/like-posts"],
+//   ["share", "Share Posts", "/share-posts"],
+//   ["comment", "Comments Posts", "/comments-posts"],
+//   ["alternate_email", "Mentions Posts", "/mentions-posts"],
+//   ["sync_saved_locally", "Saved Posts", "/saved-posts"],
+//   ["help", "FAQ", "/faq"],
+//   ["support", "Support", "/support"],
+//   // ["settings", "Settings", "/setting"],
+// ];
+
 export const homeLeftMenu = [
-  ["home", "Home", "/"],
-  ["person", "People", "/friend-request"],
-  ["workspace_premium", "Event", "/event"],
-  ["perm_media", "Pages", "/pages"],
-  ["workspaces", "Group", "/groups"],
-  ["store", "Marketplace", "/marketplace"],
-  ["sync_saved_locally", "Saved", "/saved-post"],
-  ["bookmark_add", "Favorites", "/favorites"],
-  ["settings", "Settings", "/setting"],
+  ["dashboard", "Home", "/"],
+  ["message", "Chats", "/chats"],
+  ["psychology", "Explore AI", "/explore-ai"],
+  ["description", "Posts", "/posts"],
+  ["thumb_up", "Like Posts", "/like-posts"],
+  ["send", "Share Posts", "/share-posts"],
+  ["forum", "Comments Posts", "/comments-posts"],
+  ["alternate_email", "Mentions Posts", "/mentions-posts"], // kept same, still fits
+  ["bookmark", "Saved Posts", "/saved-posts"],
+  ["live_help", "FAQ", "/faq"],
+  ["support_agent", "Support", "/support"],
+  // ["settings", "Settings", "/setting"],
 ];

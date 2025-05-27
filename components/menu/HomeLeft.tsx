@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Shortcuts from "../common/Shortcuts";
-import avatar_1 from "/public/images/avatar-1.png";
+import avatar_1 from "/public/images/hell.jpg";
 
 const HomeLeft = ({ clss }: { clss?: string }) => {
   const [activeProfile, setActiveProfile] = useState<boolean>(false);
@@ -38,7 +38,11 @@ const HomeLeft = ({ clss }: { clss?: string }) => {
         </div>
         <div className="profile-pic d-flex gap-2 align-items-center">
           <div className="avatar position-relative">
-            <Image className="avatar-img max-un" src={avatar_1} alt="avatar" />
+            <Image
+              className="avatar-img max-un setting-size"
+              src={avatar_1}
+              alt="avatar"
+            />
           </div>
           <div className="text-area">
             <h6 className="m-0 mb-1">
@@ -61,12 +65,6 @@ const HomeLeft = ({ clss }: { clss?: string }) => {
             </li>
           ))}
         </ul>
-        <div className="your-shortcuts">
-          <h6 className="mb-7">Your shortcuts</h6>
-
-          {/* Shortcuts */}
-          <Shortcuts />
-        </div>
       </div>
     </>
   );

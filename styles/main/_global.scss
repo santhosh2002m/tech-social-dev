@@ -71,7 +71,7 @@ body {
   line-height: 24px;
   padding: 0;
   margin: 0;
-  font-weight: 400;
+  font-weight: 800;
   overflow-x: hidden;
   color: var(--para-1st-color);
 }
@@ -145,7 +145,7 @@ a:hover span {
 
 img {
   max-width: 100%;
-  height: auto;
+  // height: auto;
 }
 
 .max-un {
@@ -1059,15 +1059,21 @@ li {
   padding-left: 32px;
   cursor: pointer;
   user-select: none;
+  display: flex;
+  align-items: center;
 }
 
 .checkbox-single label {
   font-family: var(--body-font);
   color: var(--heading-1st-color);
   font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 
-.checkbox-single .checkbox-area .checkmark {
+.checkbox-single .checkmark {
   position: absolute;
   left: 0;
   height: 20px;
@@ -1075,25 +1081,47 @@ li {
   border-radius: 4px;
   background-color: var(--secondary-color);
   border: 1px solid var(--border-color);
-}
-
-.checkbox-single .checkbox-area .checkmark::after {
-  content: "";
-  position: absolute;
-  display: none;
+  cursor: pointer;
 }
 
 .checkbox-single .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
   width: 12px;
   height: 8px;
-  background-image: url(/images/icon/check.png);
-  background-repeat: no-repeat;
   left: 4px;
   top: 6px;
+  background-image: url(/images/icon/check.png);
+  background-repeat: no-repeat;
 }
 
 .checkbox-single input:checked ~ .checkmark::after {
   display: block;
+}
+
+/* Fallback tick using CSS if the image fails */
+.checkbox-single input:checked ~ .checkmark::after {
+  display: block;
+  background-image: none;
+  border-bottom: 2px solid var(--primary-color);
+  border-right: 2px solid var(--primary-color);
+  transform: rotate(45deg);
+  width: 8px;
+  height: 4px;
+  left: 6px;
+  top: 6px;
+}
+
+.checkbox-single input {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
 }
 
 /* Radio Button */
@@ -1159,10 +1187,10 @@ li {
 }
 
 .search-form .input-area {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--primary-color); /* Orange border */
   border-radius: 24px;
   padding: 8px 12px;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color); /* Black background */
   display: flex;
   align-items: center;
   width: 100%;
@@ -1171,27 +1199,23 @@ li {
 }
 
 .search-form .input-area:focus-within {
-  border-color: var(--primary-color);
-}
-
-.search-form .input-area i {
-  color: var(--icon-color);
-  font-size: 18px;
-  margin-right: 8px;
+  border-color: var(--primary-color); /* Keep orange border on focus */
 }
 
 .search-form .input-area input {
   border: none;
   padding: 0;
   background: transparent;
-  color: var(--heading-1st-color);
+  color: var(--heading-1st-color); /* White text */
   font-size: 14px;
   flex: 1;
+  order: 1; /* Input comes first */
 }
 
 .search-form .input-area input::placeholder {
-  color: var(--para-1st-color);
-  opacity: 0.7;
+  color: var(--primary-color) !important; /* Orange placeholder text */
+  opacity: 1; /* Ensure full opacity for placeholder */
+  font-size: 14px;
 }
 
 .search-form .input-area input:focus {
@@ -1199,35 +1223,30 @@ li {
   border: none;
 }
 
+.search-form .input-area i {
+  display: none; /* Remove the search icon as it's not in the Figma design */
+}
+
 .search-form .input-area .aiq-button {
   background: transparent;
-  color: var(--primary-color);
+  color: var(--primary-color); /* Orange text */
   font-size: 12px;
   font-weight: 500;
   padding: 4px 12px;
   border-radius: 16px;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-color); /* Orange border */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.3s ease;
   white-space: nowrap;
+  margin-left: 8px;
+  order: 2; /* AI Q button comes after input */
 }
 
 .search-form .input-area .aiq-button:hover {
-  background: var(--primary-color);
-  color: var(--heading-1st-color);
-}
-
-@media (max-width: 991px) {
-  .search-form {
-    display: none;
-    margin: 8px 0;
-    max-width: 100%;
-  }
-  .search-form.active {
-    display: block;
-  }
+  background: var(--primary-color); /* Orange background on hover */
+  color: var(--heading-1st-color); /* White text on hover */
 }
 
 /* Animation */
@@ -1516,6 +1535,7 @@ li {
 
 .main-content .share-post .abs-area i {
   color: var(--icon-color) !important;
+  font-variation-settings: "wght" 100; /* Lightweight weight for Material Symbols */
 }
 
 input::placeholder {
@@ -1551,4 +1571,444 @@ textarea:focus {
 
 .header-menu .single-item.profile-area::before {
   background-color: var(--primary-color);
+}
+
+/* Comments Area */
+.comments-area {
+  max-height: 300px; /* Fixed height for the comment section */
+  overflow-y: auto; /* Enable vertical scrolling */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--primary-color) var(--border-color); /* Orange scrollbar on gray track */
+
+  /* Webkit browsers (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--border-color); /* Gray track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color); /* Orange thumb */
+    border-radius: 3px;
+  }
+
+  /* Ensure nested comments fit within the scrollable area */
+  .single-comment-area {
+    padding: 12px 0;
+
+    &.ms-1 {
+      margin-left: 4px; /* Adjust margin for consistency */
+    }
+
+    &.ms-xxl-15 {
+      @media (min-width: 1400px) {
+        margin-left: 60px; /* Adjust margin for larger screens */
+      }
+    }
+  }
+
+  /* Parent Comment Styling */
+  .parent-comment {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .avatar-item {
+      .avatar-img {
+        border-radius: 50%;
+        border: 2px solid var(--primary-color); /* Orange border */
+      }
+    }
+
+    .info-item {
+      .top-area {
+        background-color: var(--secondary-color); /* Black background */
+        border-radius: 8px;
+
+        .title-area {
+          h6 {
+            color: var(--heading-1st-color); /* White username */
+            font-weight: 600;
+
+            a:hover {
+              color: var(--primary-color); /* Orange on hover */
+            }
+          }
+
+          .mdtxt {
+            color: var(--heading-1st-color); /* White text */
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  /* Sibling Comment Styling */
+  .sibling-comment {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.ms-13 {
+      margin-left: 52px; /* Adjust margin for nested comments */
+    }
+
+    &.ms-sm-15 {
+      @media (min-width: 576px) {
+        margin-left: 60px; /* Adjust margin for larger screens */
+      }
+    }
+
+    .avatar-item {
+      .avatar-img {
+        border-radius: 50%;
+        border: 2px solid var(--primary-color); /* Orange border */
+      }
+    }
+
+    .info-item {
+      .top-area {
+        background-color: var(--secondary-color); /* Black background */
+        border-radius: 8px;
+
+        .title-area {
+          h6 {
+            color: var(--heading-1st-color); /* White username */
+            font-weight: 600;
+
+            a:hover {
+              color: var(--primary-color); /* Orange on hover */
+            }
+          }
+
+          .mdtxt {
+            color: var(--heading-1st-color); /* White text */
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 575px) {
+  .comments-area {
+    max-height: 200px; /* Smaller height on mobile */
+  }
+}
+
+input::placeholder {
+  color: #f05a28 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #f05a28 !important;
+}
+
+/* Calendar Styling */
+.poll-calendar {
+  background-color: var(--body-color) !important; /* Force black background */
+  border: 1px solid var(--border-color); /* Gray border */
+  border-radius: 8px;
+  color: var(--heading-1st-color) !important; /* Force white text */
+  font-family: var(--body-font);
+  padding: 12px;
+  box-shadow: var(--box-shadow);
+
+  /* Override any default background styles */
+  & > * {
+    background-color: transparent !important;
+  }
+
+  /* Calendar Navigation (Month/Year and Arrows) */
+  .react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    background: transparent !important; /* Ensure no white background */
+
+    .react-calendar__navigation__label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--heading-1st-color) !important; /* White text */
+      background: transparent !important;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover,
+      &:focus {
+        color: var(--primary-color); /* Orange on hover */
+      }
+    }
+
+    .react-calendar__navigation__arrow {
+      background: transparent !important;
+      border: none;
+      color: var(--heading-1st-color) !important; /* White arrows */
+      font-size: 20px;
+      padding: 8px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover,
+      &:focus {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  /* Month View */
+  .react-calendar__month-view {
+    background: transparent !important;
+
+    .react-calendar__month-view__weekdays {
+      background: transparent !important;
+
+      .react-calendar__month-view__weekdays__weekday {
+        color: var(--heading-1st-color) !important; /* White text */
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        padding: 8px 0;
+        text-transform: uppercase;
+        background: transparent !important;
+
+        abbr {
+          color: var(--heading-1st-color) !important; /* White for abbr tags */
+          text-decoration: none; /* Remove underline from abbr */
+        }
+      }
+    }
+
+    /* Days */
+    .react-calendar__month-view__days {
+      background: transparent !important;
+
+      .react-calendar__tile {
+        background: transparent !important;
+        color: var(--heading-1st-color) !important; /* White text */
+        border-radius: 50%;
+        padding: 8px;
+        font-size: 14px;
+        transition: background 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background: var(--border-color) !important; /* Gray on hover */
+          color: var(--heading-1st-color) !important;
+        }
+
+        &.react-calendar__tile--active,
+        &.react-calendar__tile--hasActive {
+          background: var(--primary-color) !important; /* Orange for selected */
+          color: var(--heading-1st-color) !important;
+          font-weight: 600;
+        }
+
+        &.react-calendar__tile--now {
+          font-weight: 600;
+          border: 2px solid var(--primary-color); /* Orange border */
+          background: transparent !important;
+          color: var(--heading-1st-color) !important;
+        }
+
+        &:disabled {
+          background: transparent !important;
+          color: #fefefe; /* Gray for disabled */
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        abbr {
+          color: inherit !important; /* Inherit white text */
+          text-decoration: none; /* Remove underline */
+        }
+      }
+    }
+
+    .react-calendar__month-view__days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+  }
+}
+
+/* Calendar Buttons (Cancel and OK) */
+.poll-calendar-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+
+  button {
+    background: transparent;
+    border: none;
+    color: var(--heading-1st-color) !important; /* White text */
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--primary-color); /* Orange on hover */
+    }
+  }
+}
+
+/* Calendar Button Styling */
+.calendar-btn {
+  background: black; /* Orange background */
+  border: none;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  .material-symbols-outlined {
+    color: #f05a28; /* White icon */
+    font-size: 24px;
+  }
+
+  &:hover {
+    border: 1px solid #f05a28;
+  }
+}
+
+/* Calendar Wrapper Positioning */
+.calendar-wrapper {
+  position: relative;
+  margin-top: 12px;
+  z-index: 10; /* Ensure calendar appears above other elements */
+}
+
+/* Ensure the calendar doesn't interfere with other elements */
+.poll-calendar {
+  width: 100%;
+  max-width: 350px; /* Adjust as needed */
+}
+
+.search-icon {
+  font-size: 1.5rem !important;
+  color: #f05a28;
+}
+
+.end {
+  justify-content: end !important;
+}
+
+.left-side {
+  margin-right: 4rem !important;
+}
+
+.accordion-button {
+  background-color: var(--body-color) !important; /* Black background */
+  color: var(--heading-1st-color) !important; /* White text */
+  border: none !important;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(
+    --border-color
+  ) !important; /* Slightly lighter gray when open */
+  color: var(--primary-color) !important; /* Orange text when open */
+}
+
+.accordion-button:focus {
+  box-shadow: none !important; /* Remove default focus shadow */
+}
+
+.accordion-body {
+  background-color: var(--body-color) !important; /* Black background */
+  padding: 16px;
+}
+
+.accordion-item {
+  background-color: var(--body-color) !important; /* Black background */
+  border: 1px solid var(--border-color) !important; /* Gray border */
+  border-radius: 8px !important;
+}
+
+/* Poll Area Styling */
+.poll-area {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.poll-area .poll-label {
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--heading-1st-color); /* White text */
+  margin-bottom: 8px;
+}
+
+.poll-area .poll-option {
+  padding: 4px 0;
+}
+
+.poll-area .poll-option-text {
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--heading-1st-color); /* White text */
+}
+
+.poll-area .poll-option-votes {
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--heading-1st-color); /* White text */
+}
+
+.poll-area .poll-progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(
+    --border-color
+  ); /* Gray background for unfilled portion */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.poll-area .poll-progress-fill {
+  height: 100%;
+  background-color: var(--primary-color); /* Orange fill for progress */
+  border-radius: 4px;
+  transition: width 0.3s ease; /* Smooth transition for width changes */
+}
+
+.setting-size {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.navbar {
+  padding-top: 10px !important;
 }

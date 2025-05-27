@@ -1,8 +1,8 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import avatar_2 from "/public/images/avatar-2.png";
-import avatar_3 from "/public/images/avatar-3.png";
-import avatar_4 from "/public/images/avatar-4.png";
+import avatar_2 from "/public/images/hell.jpg";
+import avatar_3 from "/public/images/hell.jpg";
+import avatar_4 from "/public/images/hell.jpg";
 
 interface RequestProps {
   id: number;
